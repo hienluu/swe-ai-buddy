@@ -1,5 +1,7 @@
 
-# SWE AI Buddy
+# SWE AI Coach & Buddy
+
+<img src="swe-home-page.png" />
 
 ### Set up
 * Rename env-example to .env
