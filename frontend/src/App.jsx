@@ -112,7 +112,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-800 px-6 py-12 w-[80%] mx-auto font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-white to-blue-200 text-gray-800 px-6 py-12 w-[80%] mx-auto font-sans">
       <h1 className="text-4xl font-bold text-center mb-2 text-indigo-700">SWE AI Coach & Buddy</h1>
       <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
         Select a common software engineering challenge you're facing, describe your specific situation, and receive a comprehensive action plan or prompt to generate a plan
@@ -163,7 +163,7 @@ export default function App() {
         <label className="block text-lg font-semibold text-gray-700 mb-2">Select a common challenge:</label>
         <div className="relative">
           <select
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white"
+            className="w-[80%] p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white"
             onChange={(e) => setSelectedChallenge(e.target.value)}
             value={selectedChallenge}
           >
@@ -185,7 +185,7 @@ export default function App() {
       <div className="mb-6">
         <label className="block text-lg font-semibold text-gray-700 mb-2">Describe your specific challenge in detail (optional):</label>
         <textarea
-          className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+          className="w-[80%] p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           rows="3"
           onChange={(e) => setContext(e.target.value)}
           value={context}
