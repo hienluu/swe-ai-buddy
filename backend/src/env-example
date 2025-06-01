@@ -1,0 +1,14 @@
+# options: openai, gemini, grok
+MODEL_PROVIDER=openai
+
+# grok
+GROQ_COMPATIBLE_OPENAI_ENDPOINT=https://api.groq.com/v1
+GROQ_API_KEY=<value>
+
+
+# open ai related
+OPENAI_API_KEY=<value>
+
+# gemini related
+GEMINI_COMPATIBLE_OPENAI_ENDPOINT=https://generativelanguage.googleapis.com/v1beta/openai/
+GEMINI_API_KEY=<value>
