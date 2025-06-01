@@ -63,7 +63,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-800 px-6 py-12 w-[80%] mx-auto font-sans">
-      <h1 className="text-4xl font-bold text-center mb-2 text-indigo-700">SWE AI Buddy</h1>
+      <h1 className="text-4xl font-bold text-center mb-2 text-indigo-700">SWE AI Coach & Buddy</h1>
       <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
         Select a common software engineering challenge you're facing, describe your specific situation, and receive a comprehensive action plan or prompt to generate a plan
       </p>
