@@ -9,8 +9,6 @@ import json
 
 load_dotenv()  # loads variables from .env file
 
-model_provider = os.getenv("MODEL_PROVIDER")
-print("model_provider: ", model_provider)
 
 app = FastAPI()
 
@@ -63,6 +61,7 @@ class ChallengeRequest(BaseModel):
     challenge: str
     context: str
     mode: str
+    model: str
 
 def get_gemini_client():
     gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -101,21 +100,24 @@ def get_system_prompt(mode):
     else:
         raise ValueError(f"Invalid mode: {mode}")
 
-def get_model_client(model_provider):
-    if model_provider == "gemini":
+def get_model_client(requested_model):
+    if requested_model == "gemini_flash":
         return get_gemini_client()
-    elif model_provider == "grok":
+    elif requested_model == "groq_llama_4":
         return get_grok_client()
-    elif model_provider == "openai":
+    elif requested_model == "openai":
         return get_openai_client()
 
 @app.post("/api/solve")
 async def solve_challenge(req: ChallengeRequest):
-    print("mode: ", req.mode)
-    system_prompt = get_system_prompt(req.mode)
+    requested_mode = req.mode
+    requested_model = req.model
+    print("requested_mode: ", requested_mode)
+    system_prompt = get_system_prompt(requested_mode)
     
-    client, model = get_model_client(model_provider)
-    print(f"model_provider: {model_provider}, model: {model}")
+    print(f"requested_model: {requested_model}")
+    client, model = get_model_client(requested_model)
+    print(f"mode: {requested_mode}, model: {model}")
 
     try:
         completion = client.chat.completions.create(

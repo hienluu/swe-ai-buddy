@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes fade-in-out {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-out {
+  animation: fade-in-out 1.5s ease-in-out infinite;
+}
+
+/* Add smooth transitions for all elements */
+* {
+  transition: all 0.2s ease-in-out;
+}

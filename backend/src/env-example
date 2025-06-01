@@ -1,8 +1,7 @@
-# options: openai, gemini, grok
-MODEL_PROVIDER=openai
+
 
 # grok
-GROQ_COMPATIBLE_OPENAI_ENDPOINT=https://api.groq.com/v1
+GROQ_COMPATIBLE_OPENAI_ENDPOINT=https://api.groq.com/openai/v1
 GROQ_API_KEY=<value>
 
 

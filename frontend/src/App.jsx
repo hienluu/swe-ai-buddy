@@ -1,7 +1,7 @@
 // File: frontend/src/App.jsx
 import React, { useState } from "react";
 import axios from "axios";
-import { Sparkles, Code, Users, Copy, Check } from "lucide-react";
+import { Sparkles, Code, Users, Copy, Check, Brain, Cpu, Zap } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 const challenges = {
@@ -26,6 +26,54 @@ const challenges = {
   ]
 };
 
+const LoadingAnimation = () => {
+  const [step, setStep] = useState(0);
+  
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setStep((prev) => (prev + 1) % 3);
+    }, 1500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const steps = [
+    {
+      icon: <Brain className="w-6 h-6" />,
+      text: "Warming up KV cache...",
+      color: "text-purple-500"
+    },
+    {
+      icon: <Cpu className="w-6 h-6" />,
+      text: "Attention mechanism processing...",
+      color: "text-blue-500"
+    },
+    {
+      icon: <Zap className="w-6 h-6" />,
+      text: "Generating response...",
+      color: "text-yellow-500"
+    }
+  ];
+
+  return (
+    <div className="flex flex-col items-center justify-center p-8 bg-white rounded-xl shadow-lg">
+      <div className="relative w-24 h-24 mb-4">
+        <div className="absolute inset-0 border-4 border-indigo-200 rounded-full animate-ping"></div>
+        <div className="absolute inset-2 border-4 border-indigo-300 rounded-full animate-pulse"></div>
+        <div className="absolute inset-4 border-4 border-indigo-400 rounded-full animate-spin"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          {steps[step].icon}
+        </div>
+      </div>
+      <div className={`text-lg font-medium ${steps[step].color} animate-fade-in-out`}>
+        {steps[step].text}
+      </div>
+      <div className="mt-4 text-sm text-gray-500">
+        This may take a few moments...
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
   const [selectedChallenge, setSelectedChallenge] = useState("");
   const [context, setContext] = useState("");
@@ -33,6 +81,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState("plan");
   const [copied, setCopied] = useState(false);
+  const [model, setModel] = useState("groq_llama_4");
 
   const submitChallenge = async () => {
     setLoading(true);
@@ -41,7 +90,8 @@ export default function App() {
       const res = await axios.post("http://localhost:8000/api/solve", {
         challenge: selectedChallenge,
         context,
-        mode
+        mode,
+        model
       });
       setResponse(res.data);
     } catch (err) {
@@ -94,6 +144,17 @@ export default function App() {
               />
               <span>Prompt</span>
             </label>
+          </div>
+          <div className="flex items-center gap-2 ml-8">
+            <label className="text-lg font-semibold text-gray-700">Model:</label>
+            <select
+              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+            >
+              <option value="gemini_flash">Gemini Flash</option>
+              <option value="groq_llama_4">Groq Llama 4</option>
+            </select>
           </div>
         </div>
       </div>
@@ -151,7 +212,9 @@ export default function App() {
         </button>
       </div>
 
-      {response && (
+      {loading && <LoadingAnimation />}
+
+      {response && !loading && (
         <div className="mt-8 p-6 border rounded-xl bg-white shadow-lg">
           {response.error ? (
             <p className="text-red-600 font-medium">{response.error}</p>
