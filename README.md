@@ -6,7 +6,7 @@
 ### Set up
 * Rename env-example to .env
 * Add the necessary API keys to your .env file
-* Model provider is set through the MODEL_PROVIDER environment variable
+
 
 ### Starting frontend
 cd frontend
